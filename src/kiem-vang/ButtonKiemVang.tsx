@@ -58,7 +58,7 @@ export class ButtonKiemVang extends Component<Props, { isLoading }> {
             return <Spinner size={"small"} style={{marginLeft: 8, marginRight: 8}}/>
         }
         return (
-            <Button {...this.props} title={this.props.title} model={ButtonModel.transparent} onPress={async () => {
+            <Button {...this.props} onPress={async () => {
                 this.props.onPress && this.props.onPress();
                 if (this.props.isShowDialog) {
                     let isHasShowDialog = await PreferenceUtils.getBooleanSetting("HAS_SHOW_DIG_GOLD");

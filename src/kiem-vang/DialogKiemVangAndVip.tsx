@@ -23,7 +23,8 @@ export class DialogKiemVangAndVip extends Component<Props> {
                 ref={(popupDialog) => { this.popupDialog = popupDialog }}>
                 <View style={{padding: 12, flexDirection: "column"}}>
                     <TextCustom value={this.props.title} style={[s.f_nor, {marginBottom: 16}]}/>
-                    <ButtonKiemVang title={this.props.titleKiemVang} style={{marginBottom: 8}} model={ButtonModel.primary}
+                    <ButtonKiemVang title={this.props.titleKiemVang} style={{marginBottom: 8}}
+                                    model={ButtonModel.primary}
                                     onShowAds={this.props.onShowAds}
                                     onPress={async () => {
                                         this.dismiss(this);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getStringsCommon } from "my-rn-common-resource";
 import { RNAdsUtils } from "my-rn-ads";
 import { PreferenceUtils } from "my-rn-base-utils";
-import { Button, ButtonModel, DialogUtils, Spinner, Toast } from "my-rn-base-component";
+import { Button, DialogUtils, Spinner, Toast } from "my-rn-base-component";
 /**Nếu video chưa ready => loading, load xong show cái title*/
 export class ButtonKiemVang extends Component {
     constructor(props) {
@@ -42,7 +42,7 @@ export class ButtonKiemVang extends Component {
         if (this.state.isLoading) {
             return <Spinner size={"small"} style={{ marginLeft: 8, marginRight: 8 }}/>;
         }
-        return (<Button {...this.props} title={this.props.title} model={ButtonModel.transparent} onPress={async () => {
+        return (<Button {...this.props} onPress={async () => {
             this.props.onPress && this.props.onPress();
             if (this.props.isShowDialog) {
                 let isHasShowDialog = await PreferenceUtils.getBooleanSetting("HAS_SHOW_DIG_GOLD");
