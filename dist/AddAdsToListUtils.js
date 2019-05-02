@@ -2,6 +2,12 @@ import { NativeAdsView } from "my-rn-ads";
 import { isEmpty, RNCommonUtils, sendError } from "my-rn-base-utils";
 import { MyAdsAndSettingUtils } from "./MyAdsAndSettingUtils";
 export class AddAdsToListUtils {
+    static async getAdsObjAddToList(isLargeAds = true, typeAds = NativeAdsView.TYPE_DETAIL_VOCA) {
+        if (await RNCommonUtils.isVIPUser()) {
+            return null;
+        }
+        return { large: isLargeAds, typeAds: typeAds };
+    }
     /**
      * space = 4 tương đương với từ vựng có example hoặc câu hỏi chọn đáp án có 4 lựa chọn
      *

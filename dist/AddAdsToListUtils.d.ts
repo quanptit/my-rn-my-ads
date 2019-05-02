@@ -1,4 +1,6 @@
+import { AdsObj } from "my-rn-base-utils";
 export declare class AddAdsToListUtils {
+    static getAdsObjAddToList(isLargeAds?: boolean, typeAds?: number): Promise<AdsObj>;
     /**
      * space = 4 tương đương với từ vựng có example hoặc câu hỏi chọn đáp án có 4 lựa chọn
      *
