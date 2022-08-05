@@ -1,12 +1,13 @@
 {
   "name": "my-rn-my-ads",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "my libs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "install_npm": "yarn install",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "link_d": "yarn link rn-fetch-blob my-rn-ads my-rn-cached-image @types/react @types/react-native react react-native my-rn-base-component my-rn-base-utils my-rn-common-resource"
   },
   "keywords": [
     "react-native"

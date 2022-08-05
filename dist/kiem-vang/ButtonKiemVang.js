@@ -5,6 +5,7 @@ import { PreferenceUtils } from "my-rn-base-utils";
 import { Button, DialogUtils, Spinner, Toast } from "my-rn-base-component";
 /**Nếu video chưa ready => loading, load xong show cái title*/
 export class ButtonKiemVang extends Component {
+    timeInterval;
     constructor(props) {
         super(props);
         this.state = { isLoading: true };
@@ -43,22 +44,22 @@ export class ButtonKiemVang extends Component {
             return <Spinner size={"small"} style={{ marginLeft: 8, marginRight: 8 }}/>;
         }
         return (<Button {...this.props} onPress={async () => {
-            this.props.onPress && this.props.onPress();
-            if (this.props.isShowDialog) {
-                let isHasShowDialog = await PreferenceUtils.getBooleanSetting("HAS_SHOW_DIG_GOLD");
-                console.log("isHasShowDialog: ", isHasShowDialog);
-                if (!isHasShowDialog) {
-                    PreferenceUtils.saveBooleanSetting("HAS_SHOW_DIG_GOLD", true);
-                    DialogUtils.showQuestionDialog(null, getStringsCommon().xem_video_nhan_gold, {
-                        text: getStringsCommon().Ok.toUpperCase(), onPress: () => {
-                            this.btnViewAdsClick();
-                        }
-                    }, { text: getStringsCommon().Cancel.toUpperCase() });
-                    return;
+                this.props.onPress && this.props.onPress();
+                if (this.props.isShowDialog) {
+                    let isHasShowDialog = await PreferenceUtils.getBooleanSetting("HAS_SHOW_DIG_GOLD");
+                    console.log("isHasShowDialog: ", isHasShowDialog);
+                    if (!isHasShowDialog) {
+                        PreferenceUtils.saveBooleanSetting("HAS_SHOW_DIG_GOLD", true);
+                        DialogUtils.showQuestionDialog(null, getStringsCommon().xem_video_nhan_gold, {
+                            text: getStringsCommon().Ok.toUpperCase(), onPress: () => {
+                                this.btnViewAdsClick();
+                            }
+                        }, { text: getStringsCommon().Cancel.toUpperCase() });
+                        return;
+                    }
                 }
-            }
-            this.btnViewAdsClick();
-        }}>
+                this.btnViewAdsClick();
+            }}>
             </Button>);
     }
     async btnViewAdsClick() {

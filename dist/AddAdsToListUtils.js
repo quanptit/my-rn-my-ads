@@ -23,19 +23,25 @@ export class AddAdsToListUtils {
         }
         if (isEmpty(listData))
             return;
-        let countAds = 0;
-        countAds = AddAdsToListUtils._addAdsCenterContentAndExercise(listData, countAds, typeAds);
-        if (countAds >= 3)
-            return;
-        countAds = AddAdsToListUtils._addAdsAfterResultButton(listData, countAds, typeAds);
-        if (countAds >= 3)
-            return;
-        countAds = AddAdsToListUtils._addAdsToBottom(listData, countAds, typeAds);
-        if (countAds >= 3)
-            return;
-        countAds = AddAdsToListUtils._addAdsFollowSpace(listData, countAds, typeAds, 0);
-        if (countAds >= 3)
-            return;
+        try {
+            let countAds = 0;
+            countAds = AddAdsToListUtils._addAdsCenterContentAndExercise(listData, countAds, typeAds);
+            if (countAds >= 3)
+                return;
+            countAds = AddAdsToListUtils._addAdsAfterResultButton(listData, countAds, typeAds);
+            if (countAds >= 3)
+                return;
+            countAds = AddAdsToListUtils._addAdsToBottom(listData, countAds, typeAds);
+            if (countAds >= 3)
+                return;
+            countAds = AddAdsToListUtils._addAdsFollowSpace(listData, countAds, typeAds, 0);
+            if (countAds >= 3)
+                return;
+        }
+        catch (err) {
+            console.log('addAdsObjToListDetail Error');
+            sendError(err);
+        }
         //region trên btn thông minh nếu đủ space
         // space = 0
         // for (let i = 0; i < listData.length; i++) {
@@ -213,27 +219,33 @@ export class AddAdsToListUtils {
     //endregion
     //region  Add To List Summary
     static async addAdsObjToListSummary(listData, addMyAdsSetting) {
-        if (await RNCommonUtils.isVIPUser()) {
-            return;
-        }
-        if (isEmpty(listData))
-            return;
-        let isAddMyAds;
-        if (addMyAdsSetting != null) {
-            isAddMyAds = await MyAdsAndSettingUtils.addMyAdsToList(listData, addMyAdsSetting.androidID);
-        }
-        if (listData.length < 5) {
-            listData.push({ large: true, typeAds: NativeAdsView.TYPE_SUMMARY_LARGE, allowBannerBackup: true });
-            return;
-        }
-        listData.insert(isAddMyAds ? 4 : 3, { large: true, typeAds: NativeAdsView.TYPE_SUMMARY_LARGE, allowBannerBackup: true });
-        if (listData.length > 22) {
-            listData.insert(21, { large: true, typeAds: NativeAdsView.TYPE_SUMMARY_LARGE, allowBannerBackup: true });
-            if (listData.length > 35)
+        try {
+            if (await RNCommonUtils.isVIPUser()) {
+                return;
+            }
+            if (isEmpty(listData))
+                return;
+            let isAddMyAds;
+            if (addMyAdsSetting != null) {
+                isAddMyAds = await MyAdsAndSettingUtils.addMyAdsToList(listData, addMyAdsSetting.androidID);
+            }
+            if (listData.length < 5) {
                 listData.push({ large: true, typeAds: NativeAdsView.TYPE_SUMMARY_LARGE, allowBannerBackup: true });
+                return;
+            }
+            listData.insert(isAddMyAds ? 4 : 3, { large: true, typeAds: NativeAdsView.TYPE_SUMMARY_LARGE, allowBannerBackup: true });
+            if (listData.length > 22) {
+                listData.insert(21, { large: true, typeAds: NativeAdsView.TYPE_SUMMARY_LARGE, allowBannerBackup: true });
+                if (listData.length > 35)
+                    listData.push({ large: true, typeAds: NativeAdsView.TYPE_SUMMARY_LARGE, allowBannerBackup: true });
+            }
+            else if (listData.length > 16) {
+                listData.push({ large: true, typeAds: NativeAdsView.TYPE_SUMMARY_LARGE, allowBannerBackup: true });
+            }
         }
-        else if (listData.length > 16) {
-            listData.push({ large: true, typeAds: NativeAdsView.TYPE_SUMMARY_LARGE, allowBannerBackup: true });
+        catch (err) {
+            console.log('addAdsObjToListSummary ERROR');
+            sendError(err);
         }
     }
 }
